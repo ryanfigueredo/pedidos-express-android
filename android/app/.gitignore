@@ -1,0 +1,9 @@
+# Keystore files - NUNCA commitar!
+*.keystore
+release.keystore
+debug.keystore
+
+# Build outputs
+build/
+*.apk
+*.aab
