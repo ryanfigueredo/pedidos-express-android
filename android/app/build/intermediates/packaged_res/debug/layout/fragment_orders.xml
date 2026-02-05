@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff7ed">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pedidos"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:gravity="center"
+        android:textColor="#ea580c"
+        android:background="#ffffff" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/orders_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#ea580c"
+        app:tabSelectedTextColor="#ea580c"
+        app:tabTextColor="#6b7280"
+        app:tabIndicatorHeight="3dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedidos" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rota" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entregues" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orders_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Loading Animation (sobrepõe tudo) -->
+    <FrameLayout
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff7ed"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:lottie_fileName="delivery_animation.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/test_print_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Testar Impressão"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:backgroundTint="#ea580c"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

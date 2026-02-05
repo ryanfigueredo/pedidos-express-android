@@ -1,0 +1,195 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.tamborilburguer.admin"
+4    android:versionCode="2"
+5    android:versionName="1.0.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:5:5-66
+11-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:5:22-64
+12
+13    <!-- Permissões Bluetooth -->
+14    <uses-permission
+14-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:8:5-95
+15        android:name="android.permission.BLUETOOTH"
+15-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:8:22-65
+16        android:maxSdkVersion="30" />
+16-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:8:66-92
+17    <uses-permission
+17-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:9:5-101
+18        android:name="android.permission.BLUETOOTH_ADMIN"
+18-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:9:22-71
+19        android:maxSdkVersion="30" />
+19-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:9:72-98
+20    <uses-permission
+20-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:10:5-140
+21        android:name="android.permission.BLUETOOTH_SCAN"
+21-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:10:22-70
+22        android:usesPermissionFlags="neverForLocation" />
+22-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:10:71-117
+23    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+23-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:11:5-96
+23-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:11:22-73
+24    <uses-permission
+24-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:12:5-106
+25        android:name="android.permission.ACCESS_FINE_LOCATION"
+25-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:12:22-76
+26        android:maxSdkVersion="30" />
+26-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:12:77-103
+27    <uses-permission
+27-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:13:5-108
+28        android:name="android.permission.ACCESS_COARSE_LOCATION"
+28-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:13:22-78
+29        android:maxSdkVersion="30" />
+29-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:13:79-105
+30
+31    <uses-feature
+31-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:15:5-88
+32        android:name="android.hardware.bluetooth"
+32-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:15:19-60
+33        android:required="false" />
+33-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:15:61-85
+34
+35    <permission
+35-->[androidx.core:core:1.12.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+36        android:name="com.tamborilburguer.admin.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+36-->[androidx.core:core:1.12.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+37        android:protectionLevel="signature" />
+37-->[androidx.core:core:1.12.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+38
+39    <uses-permission android:name="com.tamborilburguer.admin.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+39-->[androidx.core:core:1.12.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+39-->[androidx.core:core:1.12.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+40
+41    <application
+41-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:17:5-49:19
+42        android:allowBackup="true"
+42-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:18:9-35
+43        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+43-->[androidx.core:core:1.12.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+44        android:debuggable="true"
+45        android:extractNativeLibs="false"
+46        android:icon="@mipmap/ic_launcher"
+46-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:19:9-43
+47        android:label="Pedidos Express"
+47-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:20:9-40
+48        android:theme="@style/AppTheme" >
+48-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:21:9-40
+49        <activity
+49-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:23:9-31:20
+50            android:name="com.tamborilburguer.admin.MainActivity"
+50-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:24:13-41
+51            android:exported="true"
+51-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:25:13-36
+52            android:screenOrientation="portrait" >
+52-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:26:13-49
+53            <intent-filter>
+53-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:27:13-30:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:28:17-69
+54-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:28:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:29:17-77
+56-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:29:27-74
+57            </intent-filter>
+58        </activity>
+59        <activity
+59-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:33:9-35:52
+60            android:name="com.tamborilburguer.admin.LoginActivity"
+60-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:34:13-42
+61            android:screenOrientation="portrait" />
+61-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:35:13-49
+62        <activity
+62-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:37:9-39:52
+63            android:name="com.tamborilburguer.admin.MainNavigationActivity"
+63-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:38:13-51
+64            android:screenOrientation="portrait" />
+64-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:39:13-49
+65        <activity
+65-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:41:9-43:52
+66            android:name="com.tamborilburguer.admin.SettingsActivity"
+66-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:42:13-45
+67            android:screenOrientation="portrait" />
+67-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:43:13-49
+68        <activity
+68-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:45:9-48:68
+69            android:name="com.tamborilburguer.admin.EditOrderActivity"
+69-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:46:13-46
+70            android:parentActivityName="com.tamborilburguer.admin.MainNavigationActivity"
+70-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:48:13-65
+71            android:screenOrientation="portrait" />
+71-->/Users/ryanfigueredo/Dev/TamborilBurguer/app-admin-native/android/app/src/main/AndroidManifest.xml:47:13-49
+72
+73        <provider
+73-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+74            android:name="androidx.startup.InitializationProvider"
+74-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+75            android:authorities="com.tamborilburguer.admin.androidx-startup"
+75-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+76            android:exported="false" >
+76-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+77            <meta-data
+77-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+78                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+78-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+79                android:value="androidx.startup" />
+79-->[androidx.emoji2:emoji2:1.2.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/6d259bee7c66af696827a4b096987afb/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+80            <meta-data
+80-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/f9b0d7e87a66f060a056c5b518c987ce/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+81                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+81-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/f9b0d7e87a66f060a056c5b518c987ce/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+82                android:value="androidx.startup" />
+82-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/f9b0d7e87a66f060a056c5b518c987ce/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+83            <meta-data
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+84                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+85                android:value="androidx.startup" />
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+86        </provider>
+87
+88        <receiver
+88-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+89            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+90            android:directBootAware="false"
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+91            android:enabled="true"
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+92            android:exported="true"
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+93            android:permission="android.permission.DUMP" >
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+94            <intent-filter>
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+95                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+96            </intent-filter>
+97            <intent-filter>
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+98                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+99            </intent-filter>
+100            <intent-filter>
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+101                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+102            </intent-filter>
+103            <intent-filter>
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+104                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+104-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+104-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/c288995cb01f34f20b1980d564bb4b45/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+105            </intent-filter>
+106        </receiver>
+107    </application>
+108
+109</manifest>

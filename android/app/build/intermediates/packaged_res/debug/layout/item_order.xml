@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#ffffff"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/order_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pedido #123"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#ea580c" />
+
+            <TextView
+                android:id="@+id/order_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pendente"
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:background="#ffedd5"
+                android:textColor="#c2410c"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <ImageButton
+                android:id="@+id/order_menu_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_more_vert"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Opções do pedido"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cliente: João"
+            android:layout_marginTop="8dp"
+            android:textColor="#1f2937" />
+
+        <TextView
+            android:id="@+id/order_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total: R$ 50,00"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:textColor="#ea580c" />
+
+        <LinearLayout
+            android:id="@+id/delivery_actions_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="12dp"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/confirm_delivery_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="✓ Entregue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#10b981"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="8dp"
+                android:padding="12dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <Button
+                android:id="@+id/report_problem_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="✗ Problema"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#ef4444"
+                android:textColor="#ffffff"
+                android:padding="12dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

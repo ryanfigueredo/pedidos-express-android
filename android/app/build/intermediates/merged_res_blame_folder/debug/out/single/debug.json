@@ -1,0 +1,358 @@
+[
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_activity_orders.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/activity_orders.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_menu.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_menu.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_pending.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_pending.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_badge.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_badge.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/color_nav_icon_color.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/color/nav_icon_color.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_inter_semibold.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/inter_semibold.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_inter_bold.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/inter_bold.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_nav_icon_background.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/nav_icon_background.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_add.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_add.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_gradient_header.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/gradient_header.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_poppins_semibold.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/poppins_semibold.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_support.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_support.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/menu_main_menu.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/menu/main_menu.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_nav_icon_background_selected.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/nav_icon_background_selected.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_activity_login.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/activity_login.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_tag.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_tag.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_poppins_family.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/poppins_family.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_settings.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_settings.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_dialog_delivery_problem.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/dialog_delivery_problem.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_gradient_card_orange.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/gradient_card_orange.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_inter_regular.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/inter_regular.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_person.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_person.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_order_edit.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_order_edit.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_activity_settings.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_activity_edit_order.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/activity_edit_order.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_settings.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_menu.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_menu.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_settings.xml.flat",
+        "source": "com.tamborilburguer.admin.app-main-43:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_message_received.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_message_received.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_status_circle_background_open.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/status_circle_background_open.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/menu_bottom_navigation.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/menu/bottom_navigation.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/color_nav_text_color.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/color/nav_text_color.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_menu.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/fragment_menu.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_whatsapp.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_whatsapp.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_status_circle_background.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/status_circle_background.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_inter_medium.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/inter_medium.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_dialog_menu_item.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/dialog_menu_item.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_store.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/fragment_store.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_close.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_close.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_send.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_send.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_activity_main_navigation.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/activity_main_navigation.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_orders.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_orders.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_edittext_background.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/edittext_background.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_shopping_cart.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_shopping_cart.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_menu_select.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_menu_select.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_gradient_card_red.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/gradient_card_red.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_orders.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/fragment_orders.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_dialog_order_status.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/dialog_order_status.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_top_app_bar.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/top_app_bar.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_dashboard.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/fragment_dashboard.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_nav_background.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/nav_background.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_receipt.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_receipt.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_arrow_back.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_arrow_back.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_poppins_bold.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/poppins_bold.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_button_outlined_red.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/button_outlined_red.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_poppins_medium.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/poppins_medium.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_delete.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_delete.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_at.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_at.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_order.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_order.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_poppins_regular.ttf.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/poppins_regular.ttf"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_message_sent.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_message_sent.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_check.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_check.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_gradient_card_purple.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/gradient_card_purple.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_more_vert.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_more_vert.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_item_conversation.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/item_conversation.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_dashboard.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_dashboard.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_message_input_background.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/message_input_background.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/layout_fragment_support.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/layout/fragment_support.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_gradient_card_green.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/gradient_card_green.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_gradient_top_app_bar.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/gradient_top_app_bar.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/font_inter_family.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/font/inter_family.xml"
+    },
+    {
+        "merged": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-merged_res-41:/drawable_ic_attach_money.xml.flat",
+        "source": "/Users/ryanfigueredo/.gradle/daemon/8.14.3/com.tamborilburguer.admin.app-main-43:/drawable/ic_attach_money.xml"
+    }
+]

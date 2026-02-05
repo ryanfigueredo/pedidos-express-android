@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#ea580c</item>
+        <item name="colorPrimaryDark">#c2410c</item>
+        <item name="colorAccent">#ea580c</item>
+    </style>
+    
+    <!-- Style for headings (using Poppins) -->
+    <style name="TextAppearance.Headline" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/poppins_family</item>
+        <item name="fontFamily">@font/poppins_family</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="TextAppearance.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/poppins_family</item>
+        <item name="fontFamily">@font/poppins_family</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <!-- Text appearance with Inter font -->
+    <style name="TextAppearance.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/inter_family</item>
+        <item name="fontFamily">@font/inter_family</item>
+    </style>
+    
+    <!-- Bottom Navigation Styles -->
+    <style name="NavItemActiveIndicator" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:height">3dp</item>
+        <item name="android:width">40dp</item>
+    </style>
+    
+    <style name="NavTextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/inter_family</item>
+        <item name="fontFamily">@font/inter_family</item>
+    </style>
+</resources>
