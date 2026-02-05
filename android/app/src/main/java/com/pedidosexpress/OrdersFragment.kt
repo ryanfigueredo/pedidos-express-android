@@ -37,6 +37,7 @@ class OrdersFragment : Fragment() {
     private lateinit var ordersTabs: TabLayout
     private lateinit var printerHelper: PrinterHelper
     private lateinit var apiService: ApiService
+    private lateinit var authService: AuthService
     
     private val handler = Handler(Looper.getMainLooper())
     private val refreshRunnable = object : Runnable {
@@ -68,6 +69,11 @@ class OrdersFragment : Fragment() {
         
         apiService = ApiService(requireContext())
         printerHelper = PrinterHelper(requireContext())
+        authService = AuthService(requireContext())
+        
+        // Atualizar título dinamicamente
+        val user = authService.getUser()
+        activity?.title = BusinessTypeHelper.ordersLabel(user)
         
         ordersRecyclerView = view.findViewById(R.id.orders_recycler)
         testPrintButton = view.findViewById(R.id.test_print_button)
@@ -395,9 +401,10 @@ class OrdersFragment : Fragment() {
         val deliveryCount = allOrders.count { it.status == "out_for_delivery" }
         val finishedCount = allOrders.count { it.status == "finished" || it.status == "cancelled" }
         
-        ordersTabs.getTabAt(0)?.text = "Pedidos ($pendingCount)"
-        ordersTabs.getTabAt(1)?.text = "Rota ($deliveryCount)"
-        ordersTabs.getTabAt(2)?.text = "Entregues ($finishedCount)"
+        val user = authService.getUser()
+        ordersTabs.getTabAt(0)?.text = "${BusinessTypeHelper.pendingOrdersLabel(user)} ($pendingCount)"
+        ordersTabs.getTabAt(1)?.text = "${BusinessTypeHelper.outForDeliveryLabel(user)} ($deliveryCount)"
+        ordersTabs.getTabAt(2)?.text = "${BusinessTypeHelper.finishedOrdersLabel(user)} ($finishedCount)"
     }
     
     private fun confirmDelivery(order: Order) {

@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 
 class DashboardFragment : Fragment() {
     private lateinit var apiService: ApiService
+    private lateinit var authService: AuthService
     private lateinit var progressBar: View
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var ordersTodayText: TextView
@@ -55,6 +56,11 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         apiService = ApiService(requireContext())
+        authService = AuthService(requireContext())
+        
+        // Atualizar labels dinamicamente (se os IDs existirem no layout)
+        val user = authService.getUser()
+        // Nota: Os labels estão hardcoded no XML, mas podem ser atualizados programaticamente se necessário
         
         progressBar = view.findViewById(R.id.progress_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
@@ -177,7 +183,8 @@ class DashboardFragment : Fragment() {
         val entriesOrders = dailyStats.mapIndexed { index, stat ->
             BarEntry(index.toFloat(), stat.orders.toFloat())
         }
-        val barDataSet = BarDataSet(entriesOrders, "Pedidos")
+        val user = authService.getUser()
+        val barDataSet = BarDataSet(entriesOrders, BusinessTypeHelper.ordersLabel(user))
         barDataSet.color = Color.parseColor("#ea580c")
         barDataSet.valueTextColor = Color.parseColor("#111827")
         barDataSet.valueTextSize = 10f

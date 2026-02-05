@@ -25,6 +25,7 @@ import kotlinx.coroutines.withContext
 
 class MenuFragment : Fragment() {
     private lateinit var apiService: ApiService
+    private lateinit var authService: AuthService
     private lateinit var progressBar: View
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var menuRecyclerView: RecyclerView
@@ -52,6 +53,11 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         apiService = ApiService(requireContext())
+        authService = AuthService(requireContext())
+        
+        // Atualizar título dinamicamente
+        val user = authService.getUser()
+        activity?.title = BusinessTypeHelper.menuLabel(user)
         
         progressBar = view.findViewById(R.id.progress_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)

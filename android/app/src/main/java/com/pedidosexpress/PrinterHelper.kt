@@ -170,6 +170,15 @@ class PrinterHelper(private val context: Context) {
     }
     
     /**
+     * Remove "Hambúrguer" ou "Hamburguer" do início do nome do produto
+     */
+    private fun removeHamburguerPrefix(productName: String): String {
+        return productName
+            .replace(Regex("^[Hh]amb[uú]rguer\\s+", RegexOption.IGNORE_CASE), "")
+            .trim()
+    }
+    
+    /**
      * Formata pedido para impressão
      */
     private fun formatOrder(order: Order): String {
@@ -211,7 +220,8 @@ class PrinterHelper(private val context: Context) {
             appendLine()
             appendLine("[L]<font size='big'><b>ITENS:</b></font>")
             order.items.forEach { item: OrderItem ->
-                appendLine("[L]<font size='big'>${item.quantity}x ${item.name}</font>")
+                val productName = removeHamburguerPrefix(item.name)
+                appendLine("[L]<font size='big'>${item.quantity}x $productName</font>")
             }
             appendLine()
             appendLine()

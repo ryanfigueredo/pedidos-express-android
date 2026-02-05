@@ -15,8 +15,18 @@ data class User(
     val username: String,
     val name: String,
     val role: String,
-    @SerializedName("tenant_id") val tenantId: String? = null
-)
+    @SerializedName("tenant_id") val tenantId: String? = null,
+    @SerializedName("business_type") val businessType: String? = null,
+    @SerializedName("show_prices_on_bot") val showPricesOnBot: Boolean? = null,
+    @SerializedName("tenant_name") val tenantName: String? = null,
+    @SerializedName("tenant_slug") val tenantSlug: String? = null
+) {
+    val isDentista: Boolean
+        get() = businessType == "DENTISTA"
+    
+    val isRestaurante: Boolean
+        get() = businessType == "RESTAURANTE" || businessType == null
+}
 
 data class Order(
     val id: String,
@@ -145,7 +155,11 @@ class ApiService(private val context: android.content.Context) {
                             username = userData["username"].toString(),
                             name = userData["name"].toString(),
                             role = userData["role"].toString(),
-                            tenantId = userData["tenant_id"]?.toString()
+                            tenantId = userData["tenant_id"]?.toString(),
+                            businessType = userData["business_type"]?.toString(),
+                            showPricesOnBot = (userData["show_prices_on_bot"] as? Boolean) ?: true,
+                            tenantName = userData["tenant_name"]?.toString(),
+                            tenantSlug = userData["tenant_slug"]?.toString()
                         )
                     }
                 }
@@ -160,7 +174,11 @@ class ApiService(private val context: android.content.Context) {
                     username = userData["username"].toString(),
                     name = userData["name"].toString(),
                     role = userData["role"].toString(),
-                    tenantId = userData["tenant_id"]?.toString()
+                    tenantId = userData["tenant_id"]?.toString(),
+                    businessType = userData["business_type"]?.toString(),
+                    showPricesOnBot = (userData["show_prices_on_bot"] as? Boolean) ?: true,
+                    tenantName = userData["tenant_name"]?.toString(),
+                    tenantSlug = userData["tenant_slug"]?.toString()
                 )
             } else {
                 throw IOException("Credenciais inválidas")

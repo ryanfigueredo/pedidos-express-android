@@ -11,15 +11,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainNavigationActivity : AppCompatActivity() {
     
     private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var authService: AuthService
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_navigation)
         
+        authService = AuthService(this)
+        val user = authService.getUser()
+        
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = "Pedidos Express"
         
         bottomNavigation = findViewById(R.id.bottom_navigation)
+        
+        // Atualizar labels do bottom navigation dinamicamente
+        val ordersLabel = BusinessTypeHelper.ordersLabel(user)
+        val menuLabel = BusinessTypeHelper.menuLabel(user)
+        
+        bottomNavigation.menu.findItem(R.id.nav_orders)?.title = ordersLabel
+        bottomNavigation.menu.findItem(R.id.nav_menu)?.title = menuLabel
         
         // Iniciar com tela de Pedidos
         loadFragment(OrdersFragment())
