@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.tamborilburguer.admin.app-mergeDebugResources-39:/values-v22/values-v22.xml",
+            "outputFile": "com.pedidosexpress.app-mergeDebugResources-39:/values-v22/values-v22.xml",
             "map": [
                 {
                     "source": "/Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/e808ab14c902b3f9db88cd6e886e36bc/transformed/appcompat-1.6.1/res/values-v22/values-v22.xml",

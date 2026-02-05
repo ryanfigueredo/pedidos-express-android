@@ -1,4 +1,4 @@
-com.tamborilburguer.admin
+com.pedidosexpress
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -3023,6 +3023,7 @@ drawable ic_arrow_back_black_24
 drawable ic_at
 drawable ic_attach_money
 drawable ic_badge
+drawable ic_calendar
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -3055,6 +3056,7 @@ drawable ic_settings
 drawable ic_shopping_cart
 drawable ic_support
 drawable ic_tag
+drawable ic_warning
 drawable ic_whatsapp
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3596,6 +3598,7 @@ id row_index_key
 id save_button
 id save_non_transition_alpha
 id save_overlay_view
+id save_password_checkbox
 id save_store_button
 id sawtooth
 id scale
@@ -3665,6 +3668,14 @@ id store_progress_bar
 id stretch
 id submenuarrow
 id submit_area
+id subscription_card
+id subscription_expires_at
+id subscription_payment_button
+id subscription_payment_date
+id subscription_plan_name
+id subscription_progress_bar
+id subscription_warning_card
+id subscription_warning_text
 id subtitle_text
 id supportScrollUp
 id swipe_refresh

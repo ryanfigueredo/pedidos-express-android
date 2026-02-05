@@ -257,6 +257,220 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- Card de Assinatura/Plano -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/subscription_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Assinatura e Plano"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#ea580c"
+                    android:layout_marginBottom="16dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f3f4f6"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Plano -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_badge"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Ícone de plano" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Plano Atual"
+                            android:textSize="12sp"
+                            android:textColor="#6b7280"
+                            android:layout_marginBottom="2dp" />
+
+                        <TextView
+                            android:id="@+id/subscription_plan_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Carregando..."
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#111827" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Data de Pagamento -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_calendar"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Ícone de data" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Último Pagamento"
+                            android:textSize="12sp"
+                            android:textColor="#6b7280"
+                            android:layout_marginBottom="2dp" />
+
+                        <TextView
+                            android:id="@+id/subscription_payment_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Carregando..."
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#111827" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Vencimento -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_warning"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Ícone de vencimento" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vencimento"
+                            android:textSize="12sp"
+                            android:textColor="#6b7280"
+                            android:layout_marginBottom="2dp" />
+
+                        <TextView
+                            android:id="@+id/subscription_expires_at"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Carregando..."
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#111827" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Aviso de Vencimento -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/subscription_warning_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="#fef3c7"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/subscription_warning_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#92400e"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Botão de Pagamento -->
+                <Button
+                    android:id="@+id/subscription_payment_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pagar via PIX"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="#10b981"
+                    android:textColor="#ffffff"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+                <ProgressBar
+                    android:id="@+id/subscription_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <!-- Botão de Logout -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

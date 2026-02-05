@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class MenuItemsAdapter(
-    private val items: List<com.tamborilburguer.admin.MenuItem>,
-    private val onItemClick: (com.tamborilburguer.admin.MenuItem) -> Unit
+    private val items: List<MenuItem>,
+    private val onItemClick: (MenuItem) -> Unit
 ) : RecyclerView.Adapter<MenuItemsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

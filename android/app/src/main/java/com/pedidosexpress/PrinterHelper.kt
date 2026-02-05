@@ -164,7 +164,7 @@ class PrinterHelper(private val context: Context) {
     /**
      * Imprime um pedido formatado
      */
-    fun printOrder(order: com.tamborilburguer.admin.Order) {
+    fun printOrder(order: Order) {
         val orderText = formatOrder(order)
         printFormattedText(orderText)
     }
@@ -172,7 +172,7 @@ class PrinterHelper(private val context: Context) {
     /**
      * Formata pedido para impressão
      */
-    private fun formatOrder(order: com.tamborilburguer.admin.Order): String {
+    private fun formatOrder(order: Order): String {
         val displayId = order.displayId ?: order.id.take(8)
         
         // Converter data para horário Brasil (GMT-3)
@@ -210,7 +210,7 @@ class PrinterHelper(private val context: Context) {
             appendLine("[L]$addressInfo")
             appendLine()
             appendLine("[L]<font size='big'><b>ITENS:</b></font>")
-            order.items.forEach { item ->
+            order.items.forEach { item: OrderItem ->
                 appendLine("[L]<font size='big'>${item.quantity}x ${item.name}</font>")
             }
             appendLine()

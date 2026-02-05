@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.tamborilburguer.admin.app-mergeDebugResources-39:/values-v23/values-v23.xml",
+            "outputFile": "com.pedidosexpress.app-mergeDebugResources-39:/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/ee36f8d910c040a76be61a9b7c0f6c12/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",

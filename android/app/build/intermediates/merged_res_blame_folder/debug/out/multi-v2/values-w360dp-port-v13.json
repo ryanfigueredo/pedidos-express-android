@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.tamborilburguer.admin.app-mergeDebugResources-39:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
+            "outputFile": "com.pedidosexpress.app-mergeDebugResources-39:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
             "map": [
                 {
                     "source": "/Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/99c573fb3323a25a43d8b6532a659039/transformed/material-1.11.0/res/values-w360dp-port-v13/values-w360dp-port-v13.xml",

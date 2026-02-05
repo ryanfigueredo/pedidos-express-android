@@ -28,9 +28,15 @@ class ConversationsAdapter(
         val conversation = conversations[position]
         val isSelected = conversation.phone == selectedPhone
         
-        // Formatar número para exibição mais compacta
-        val displayPhone = formatPhoneCompact(conversation.phoneFormatted)
-        holder.phoneText.text = displayPhone
+        // Se estiver selecionado, mostrar ordem na fila (1, 2, 3...)
+        // Se não estiver selecionado, mostrar número de telefone
+        if (isSelected) {
+            val queueNumber = position + 1
+            holder.phoneText.text = queueNumber.toString()
+        } else {
+            val displayPhone = formatPhoneCompact(conversation.phoneFormatted)
+            holder.phoneText.text = displayPhone
+        }
         holder.waitTimeText.text = formatWaitTime(conversation.waitTime)
         
         holder.itemView.setBackgroundColor(
@@ -49,20 +55,38 @@ class ConversationsAdapter(
     }
     
     private fun formatPhoneCompact(phoneFormatted: String): String {
-        // Se o número já está formatado como (XX) XXXXX-XXXX, manter assim
-        // Caso contrário, tentar formatar
-        return if (phoneFormatted.matches(Regex("\\(\\d{2}\\) \\d{5}-\\d{4}"))) {
-            phoneFormatted
-        } else {
-            // Tentar formatar número longo
-            val digits = phoneFormatted.replace(Regex("[^0-9]"), "")
-            if (digits.length >= 11) {
+        // Extrair apenas dígitos
+        var digits = phoneFormatted.replace(Regex("[^0-9]"), "")
+        
+        // Se o número não começa com 55 (código do país), adicionar
+        if (!digits.startsWith("55") && digits.length >= 10) {
+            digits = "55$digits"
+        }
+        
+        // Formatar: +55 (XX) XXXXX-XXXX
+        return when {
+            digits.length >= 13 -> {
+                // Número completo com código do país
+                val countryCode = digits.substring(0, 2) // 55
+                val ddd = digits.substring(2, 4) // DDD
+                val part1 = digits.substring(4, 9) // Primeiros 5 dígitos
+                val part2 = digits.substring(9, 13) // Últimos 4 dígitos
+                "+$countryCode ($ddd) $part1-$part2"
+            }
+            digits.length >= 11 -> {
+                // DDD + número (sem código do país)
                 val ddd = digits.substring(0, 2)
                 val part1 = digits.substring(2, 7)
                 val part2 = digits.substring(7, 11)
-                "($ddd) $part1-$part2"
-            } else {
-                phoneFormatted
+                "+55 ($ddd) $part1-$part2"
+            }
+            else -> {
+                // Fallback: se já está formatado, adicionar +55 no início
+                if (phoneFormatted.matches(Regex("\\(\\d{2}\\) \\d{5}-\\d{4}"))) {
+                    "+55 $phoneFormatted"
+                } else {
+                    phoneFormatted
+                }
             }
         }
     }

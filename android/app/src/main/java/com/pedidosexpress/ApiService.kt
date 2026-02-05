@@ -554,6 +554,40 @@ class ApiService(private val context: android.content.Context) {
             data["success"] == true
         }
     }
+    
+    suspend fun getSubscription(): Subscription? {
+        return withContext(Dispatchers.IO) {
+            val request = buildRequest("$API_BASE_URL/api/admin/subscription", "GET")
+            val response = client.newCall(request).execute()
+            val responseBody = response.body?.string()
+            
+            if (!response.isSuccessful) {
+                throw IOException("Erro ao buscar assinatura: ${response.code}")
+            }
+            
+            val data = gson.fromJson(responseBody, Map::class.java) as Map<*, *>
+            val subscriptionData = data["subscription"] as? Map<*, *>
+            
+            if (subscriptionData == null) {
+                return@withContext null
+            }
+            
+            Subscription(
+                planType = subscriptionData["planType"]?.toString() ?: "basic",
+                planName = subscriptionData["planName"]?.toString() ?: "Básico",
+                planMessageLimit = ((subscriptionData["planMessageLimit"] as? Double) ?: 1000.0).toInt(),
+                paymentDate = subscriptionData["paymentDate"]?.toString(),
+                expiresAt = subscriptionData["expiresAt"]?.toString(),
+                status = subscriptionData["status"]?.toString() ?: "active",
+                daysUntilExpiration = (subscriptionData["daysUntilExpiration"] as? Double)?.toInt(),
+                isExpired = subscriptionData["isExpired"] == true,
+                isExpiringSoon = subscriptionData["isExpiringSoon"] == true,
+                paymentUrl = subscriptionData["paymentUrl"]?.toString() ?: "",
+                asaasSubscriptionId = subscriptionData["asaasSubscriptionId"]?.toString(),
+                asaasCustomerId = subscriptionData["asaasCustomerId"]?.toString()
+            )
+        }
+    }
 }
 
 data class DashboardStats(
@@ -601,4 +635,19 @@ data class PriorityConversation(
     @SerializedName("wait_time") val waitTime: Int,
     val timestamp: Long,
     @SerializedName("last_message") val lastMessage: Long
+)
+
+data class Subscription(
+    val planType: String,
+    val planName: String,
+    val planMessageLimit: Int,
+    val paymentDate: String?,
+    val expiresAt: String?,
+    val status: String,
+    val daysUntilExpiration: Int?,
+    val isExpired: Boolean,
+    val isExpiringSoon: Boolean,
+    val paymentUrl: String,
+    val asaasSubscriptionId: String?,
+    val asaasCustomerId: String?
 )

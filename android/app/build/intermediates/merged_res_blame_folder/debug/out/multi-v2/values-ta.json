@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.tamborilburguer.admin.app-mergeDebugResources-39:/values-ta/values-ta.xml",
+            "outputFile": "com.pedidosexpress.app-mergeDebugResources-39:/values-ta/values-ta.xml",
             "map": [
                 {
                     "source": "/Users/ryanfigueredo/.gradle/caches/8.14.3/transforms/3e34e94b7a2d71d9e823fbc5cad11056/transformed/core-1.12.0/res/values-ta/values-ta.xml",

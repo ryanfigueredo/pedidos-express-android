@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import kotlinx.coroutines.withContext
 class LoginActivity : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
+    private lateinit var savePasswordCheckbox: CheckBox
     private lateinit var loginButton: Button
     private lateinit var progressBar: View
     private lateinit var apiService: ApiService
@@ -36,8 +38,12 @@ class LoginActivity : AppCompatActivity() {
         
         usernameEditText = findViewById(R.id.username)
         passwordEditText = findViewById(R.id.password)
+        savePasswordCheckbox = findViewById(R.id.save_password_checkbox)
         loginButton = findViewById(R.id.login_button)
         progressBar = findViewById(R.id.progress_bar)
+        
+        // Carregar credenciais salvas se existirem
+        loadSavedCredentials()
         
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString().trim()
@@ -62,7 +68,13 @@ class LoginActivity : AppCompatActivity() {
                     apiService.login(username, password)
                 }
                 
-                authService.saveUser(user, username, password)
+                // Salvar credenciais apenas se o checkbox estiver marcado
+                if (savePasswordCheckbox.isChecked) {
+                    authService.saveUser(user, username, password)
+                } else {
+                    // Se não marcar, salvar apenas o usuário (sem senha) e limpar senha salva
+                    authService.saveUserWithoutPassword(user, username)
+                }
                 
                 Toast.makeText(this@LoginActivity, "Login realizado!", Toast.LENGTH_SHORT).show()
                 
@@ -73,6 +85,18 @@ class LoginActivity : AppCompatActivity() {
                 loginButton.isEnabled = true
                 progressBar.visibility = View.GONE
             }
+        }
+    }
+    
+    private fun loadSavedCredentials() {
+        val credentials = authService.getCredentials()
+        if (credentials != null) {
+            usernameEditText.setText(credentials.first)
+            passwordEditText.setText(credentials.second)
+            savePasswordCheckbox.isChecked = true
+        } else {
+            // Se não houver senha salva, desmarcar o checkbox
+            savePasswordCheckbox.isChecked = false
         }
     }
 }

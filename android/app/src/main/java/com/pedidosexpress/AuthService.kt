@@ -14,6 +14,17 @@ class AuthService(private val context: Context) {
             .putString("username", username)
             .putString("password", password)
             .putBoolean("is_logged_in", true)
+            .putBoolean("save_password", true)
+            .apply()
+    }
+    
+    fun saveUserWithoutPassword(user: User, username: String) {
+        prefs.edit()
+            .putString("user", gson.toJson(user))
+            .putString("username", username)
+            .remove("password")
+            .putBoolean("is_logged_in", true)
+            .putBoolean("save_password", false)
             .apply()
     }
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tamborilburguer.admin"
+    package="com.pedidosexpress"
     android:versionCode="2"
     android:versionName="1.0.1" >
 
@@ -33,10 +33,10 @@
         android:required="false" />
 
     <permission
-        android:name="com.tamborilburguer.admin.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.pedidosexpress.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.tamborilburguer.admin.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.pedidosexpress.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -47,7 +47,7 @@
         android:label="Pedidos Express"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.tamborilburguer.admin.MainActivity"
+            android:name="com.pedidosexpress.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -57,22 +57,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tamborilburguer.admin.LoginActivity"
+            android:name="com.pedidosexpress.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tamborilburguer.admin.MainNavigationActivity"
+            android:name="com.pedidosexpress.MainNavigationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tamborilburguer.admin.SettingsActivity"
+            android:name="com.pedidosexpress.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tamborilburguer.admin.EditOrderActivity"
-            android:parentActivityName="com.tamborilburguer.admin.MainNavigationActivity"
+            android:name="com.pedidosexpress.EditOrderActivity"
+            android:parentActivityName="com.pedidosexpress.MainNavigationActivity"
             android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.tamborilburguer.admin.androidx-startup"
+            android:authorities="com.pedidosexpress.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

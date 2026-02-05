@@ -27,7 +27,7 @@ class EditOrderActivity : AppCompatActivity() {
     
     private var order: Order? = null
     private val orderItems = mutableListOf<OrderItem>()
-    private var menuItems: List<com.tamborilburguer.admin.MenuItem> = emptyList()
+    private var menuItems: List<MenuItem> = emptyList()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +121,7 @@ class EditOrderActivity : AppCompatActivity() {
                 
                 menuItemsRecyclerView.adapter = MenuItemsAdapter(
                     menuItems.filter { it.available },
-                    onItemClick = { menuItem ->
+                    onItemClick = { menuItem: MenuItem ->
                         addItemToOrder(menuItem)
                     }
                 )
@@ -133,7 +133,7 @@ class EditOrderActivity : AppCompatActivity() {
         }
     }
     
-    private fun addItemToOrder(menuItem: com.tamborilburguer.admin.MenuItem) {
+    private fun addItemToOrder(menuItem: MenuItem) {
         val existingIndex = orderItems.indexOfFirst { it.name == menuItem.name && it.price == menuItem.price }
         
         if (existingIndex >= 0) {

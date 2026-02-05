@@ -41,8 +41,17 @@
         android:layout_height="wrap_content"
         android:hint="Senha"
         android:inputType="textPassword"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:padding="16dp" />
+
+    <CheckBox
+        android:id="@+id/save_password_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar senha"
+        android:textColor="#92400e"
+        android:layout_marginBottom="24dp"
+        android:checked="true" />
 
     <Button
         android:id="@+id/login_button"

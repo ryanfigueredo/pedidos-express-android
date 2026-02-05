@@ -21,6 +21,7 @@ drawable ic_arrow_back
 drawable ic_at
 drawable ic_attach_money
 drawable ic_badge
+drawable ic_calendar
 drawable ic_check
 drawable ic_close
 drawable ic_dashboard
@@ -36,6 +37,7 @@ drawable ic_settings
 drawable ic_shopping_cart
 drawable ic_support
 drawable ic_tag
+drawable ic_warning
 drawable ic_whatsapp
 drawable message_input_background
 drawable nav_background
@@ -126,6 +128,7 @@ id report_problem_button
 id revenue_today
 id revenue_week
 id save_button
+id save_password_checkbox
 id save_store_button
 id send_button
 id start_action_button
@@ -136,6 +139,14 @@ id status_group
 id status_text
 id store_name
 id store_progress_bar
+id subscription_card
+id subscription_expires_at
+id subscription_payment_button
+id subscription_payment_date
+id subscription_plan_name
+id subscription_progress_bar
+id subscription_warning_card
+id subscription_warning_text
 id subtitle_text
 id swipe_refresh
 id test_print_button

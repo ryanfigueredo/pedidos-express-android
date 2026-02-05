@@ -204,9 +204,9 @@ class SupportFragment : Fragment() {
         // Esconder título "Atendimento" quando uma conversa está selecionada
         titleAtendimento.visibility = View.GONE
         
-        // Atualizar header do chat com telefone formatado
+        // Atualizar header do chat com telefone formatado (com código do país)
         val headerPhone = view?.findViewById<TextView>(R.id.chat_header_phone)
-        headerPhone?.text = conversation.phoneFormatted
+        headerPhone?.text = formatPhoneWithCountryCode(conversation.phoneFormatted)
         
         // Mostrar botão WhatsApp
         whatsappButton.visibility = View.VISIBLE
@@ -332,6 +332,43 @@ class SupportFragment : Fragment() {
     private fun stopAutoRefresh() {
         refreshRunnable?.let {
             refreshHandler.removeCallbacks(it)
+        }
+    }
+    
+    private fun formatPhoneWithCountryCode(phoneFormatted: String): String {
+        // Extrair apenas dígitos
+        var digits = phoneFormatted.replace(Regex("[^0-9]"), "")
+        
+        // Se o número não começa com 55 (código do país), adicionar
+        if (!digits.startsWith("55") && digits.length >= 10) {
+            digits = "55$digits"
+        }
+        
+        // Formatar: +55 (XX) XXXXX-XXXX
+        return when {
+            digits.length >= 13 -> {
+                // Número completo com código do país
+                val countryCode = digits.substring(0, 2) // 55
+                val ddd = digits.substring(2, 4) // DDD
+                val part1 = digits.substring(4, 9) // Primeiros 5 dígitos
+                val part2 = digits.substring(9, 13) // Últimos 4 dígitos
+                "+$countryCode ($ddd) $part1-$part2"
+            }
+            digits.length >= 11 -> {
+                // DDD + número (sem código do país)
+                val ddd = digits.substring(0, 2)
+                val part1 = digits.substring(2, 7)
+                val part2 = digits.substring(7, 11)
+                "+55 ($ddd) $part1-$part2"
+            }
+            else -> {
+                // Fallback: se já está formatado, adicionar +55 no início
+                if (phoneFormatted.matches(Regex("\\(\\d{2}\\) \\d{5}-\\d{4}"))) {
+                    "+55 $phoneFormatted"
+                } else {
+                    phoneFormatted
+                }
+            }
         }
     }
 }
