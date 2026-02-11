@@ -3,12 +3,15 @@ package com.pedidosexpress
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.app.AlertDialog
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -23,7 +26,7 @@ import kotlinx.coroutines.withContext
 
 class OrdersActivity : AppCompatActivity() {
     private lateinit var ordersRecyclerView: RecyclerView
-    private lateinit var testPrintButton: Button
+    private lateinit var testPrintButton: ImageButton
     private lateinit var progressBar: View
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var printerHelper: PrinterHelper
@@ -69,27 +72,61 @@ class OrdersActivity : AppCompatActivity() {
         
         ordersAdapter = OrdersAdapter(
             emptyList(),
-            onOrderClick = { order ->
-                // Imprimir pedido quando clicar
+            onPrint = { order ->
                 if (checkBluetoothPermissions()) {
                     printerHelper.printOrder(order)
                 } else {
                     requestBluetoothPermissions()
                 }
             },
-            onMenuClick = { order ->
-                // Por enquanto, apenas imprimir também
-                if (checkBluetoothPermissions()) {
-                    printerHelper.printOrder(order)
-                } else {
-                    requestBluetoothPermissions()
-                }
+            onSendToDelivery = { order ->
+                AlertDialog.Builder(this)
+                    .setTitle("Enviar para entrega")
+                    .setMessage("Enviar o pedido ${(order.displayId ?: order.id.take(8)).replace("#", "")} para entrega?")
+                    .setPositiveButton("Enviar") { _, _ ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            try {
+                                withContext(Dispatchers.IO) {
+                                    apiService.updateOrderStatus(order.id, "out_for_delivery")
+                                    val msg = "Olá ${order.customerName}! 🛵\n\nSeu pedido ${(order.displayId ?: order.id.take(8)).replace("#", "")} *saiu para entrega*!\n\nEm breve chegaremos aí."
+                                    apiService.sendMessageToCustomer(order.customerPhone, msg)
+                                }
+                                Toast.makeText(this@OrdersActivity, "Cliente avisado. Pedido na aba Rota.", Toast.LENGTH_SHORT).show()
+                                loadOrders(false)
+                            } catch (e: Exception) {
+                                Toast.makeText(this@OrdersActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    .setNegativeButton("Cancelar", null)
+                    .show()
+            },
+            onEdit = { order ->
+                startActivity(Intent(this, EditOrderActivity::class.java).putExtra("order_id", order.id))
+            },
+            onWhatsApp = { order ->
+                openWhatsAppForCustomer(order.customerPhone)
             },
             onConfirmDelivery = { order ->
-                // TODO: Implementar confirmação de entrega
+                AlertDialog.Builder(this)
+                    .setTitle("Confirmar Entrega")
+                    .setMessage("Confirmar que o pedido foi entregue?")
+                    .setPositiveButton("Confirmar") { _, _ ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            try {
+                                withContext(Dispatchers.IO) { apiService.updateOrderStatus(order.id, "finished") }
+                                Toast.makeText(this@OrdersActivity, "Entrega confirmada!", Toast.LENGTH_SHORT).show()
+                                loadOrders(false)
+                            } catch (e: Exception) {
+                                Toast.makeText(this@OrdersActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    .setNegativeButton("Cancelar", null)
+                    .show()
             },
             onReportProblem = { order ->
-                // TODO: Implementar reportar problema
+                Toast.makeText(this, "Reportar problema: em breve", Toast.LENGTH_SHORT).show()
             }
         )
         ordersRecyclerView.adapter = ordersAdapter
@@ -239,6 +276,20 @@ class OrdersActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Permissões Bluetooth são necessárias para imprimir", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    /** Abre o WhatsApp para conversar com o cliente (número do pedido). */
+    private fun openWhatsAppForCustomer(phone: String?) {
+        val raw = phone?.trim() ?: return
+        val digits = raw.replace(Regex("[^0-9]"), "")
+        if (digits.isEmpty()) return
+        val uri = Uri.parse("https://wa.me/$digits")
+        val intent = Intent(Intent.ACTION_VIEW, uri).apply { setPackage("com.whatsapp") }
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
     }
 }

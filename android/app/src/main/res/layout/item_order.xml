@@ -30,37 +30,64 @@
                 android:textStyle="bold"
                 android:textColor="#ea580c" />
 
-            <TextView
-                android:id="@+id/order_status"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pendente"
-                android:textSize="12sp"
-                android:padding="4dp"
-                android:background="#ffedd5"
-                android:textColor="#c2410c"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_marginEnd="8dp" />
+                android:orientation="vertical"
+                android:gravity="end">
 
-            <ImageButton
-                android:id="@+id/order_menu_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_more_vert"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Opções do pedido"
-                android:padding="8dp" />
+                <TextView
+                    android:id="@+id/order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pendente"
+                    android:textSize="12sp"
+                    android:padding="4dp"
+                    android:background="#ffedd5"
+                    android:textColor="#c2410c"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_whatsapp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_whatsapp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Abrir WhatsApp para este cliente"
+                    android:padding="4dp"
+                    app:tint="#25D366" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/order_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Pedido às 19:45"
+            android:textSize="13sp"
+            android:textColor="#6b7280" />
 
         <TextView
             android:id="@+id/customer_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cliente: João"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:textColor="#1f2937" />
+
+        <TextView
+            android:id="@+id/customer_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tel: (11) 99999-9999"
+            android:layout_marginTop="2dp"
+            android:textSize="13sp"
+            android:textColor="#6b7280" />
 
         <TextView
             android:id="@+id/order_total"
@@ -71,6 +98,86 @@
             android:textStyle="bold"
             android:layout_marginTop="8dp"
             android:textColor="#ea580c" />
+
+        <!-- Botões de ação: ícone + label claro (Material 3) -->
+        <LinearLayout
+            android:id="@+id/order_actions_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/btn_imprimir"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Imprimir"
+                android:textSize="11sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:drawableStart="@drawable/ic_receipt"
+                android:drawablePadding="4dp"
+                android:drawableTint="#ffffff"
+                android:backgroundTint="#ea580c"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <Button
+                android:id="@+id/btn_enviar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Enviar"
+                android:textSize="11sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:drawableStart="@drawable/ic_send"
+                android:drawablePadding="4dp"
+                android:drawableTint="#ffffff"
+                android:backgroundTint="#0d9488"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+            <Button
+                android:id="@+id/btn_editar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar"
+                android:textSize="11sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:drawableStart="@drawable/ic_menu"
+                android:drawablePadding="4dp"
+                android:drawableTint="#ffffff"
+                android:backgroundTint="#6366f1"
+                android:textColor="#ffffff"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/delivery_actions_layout"

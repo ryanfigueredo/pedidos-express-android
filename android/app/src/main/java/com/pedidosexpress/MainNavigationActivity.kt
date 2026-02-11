@@ -10,6 +10,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainNavigationActivity : AppCompatActivity() {
     
+    companion object {
+        const val EXTRA_OPEN_SUPPORT_PHONE = "open_support_phone"
+        const val EXTRA_OPEN_SUPPORT_NAME = "open_support_name"
+    }
+    
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var authService: AuthService
     
@@ -32,8 +37,15 @@ class MainNavigationActivity : AppCompatActivity() {
         bottomNavigation.menu.findItem(R.id.nav_orders)?.title = ordersLabel
         bottomNavigation.menu.findItem(R.id.nav_menu)?.title = menuLabel
         
-        // Iniciar com tela de Pedidos
-        loadFragment(OrdersFragment())
+        val openPhone = intent?.getStringExtra(EXTRA_OPEN_SUPPORT_PHONE)
+        val openName = intent?.getStringExtra(EXTRA_OPEN_SUPPORT_NAME)
+        if (!openPhone.isNullOrEmpty()) {
+            intent?.removeExtra(EXTRA_OPEN_SUPPORT_PHONE)
+            intent?.removeExtra(EXTRA_OPEN_SUPPORT_NAME)
+            openSupportWithCustomer(openPhone, openName)
+        } else {
+            loadFragment(OrdersFragment())
+        }
         
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -60,6 +72,17 @@ class MainNavigationActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+    
+    /** Abre a aba Atendimento e inicia conversa com o cliente (lojista abre o atendimento). */
+    fun openSupportWithCustomer(phone: String, customerName: String?) {
+        val args = Bundle().apply {
+            putString(SupportFragment.ARG_OPEN_PHONE, phone)
+            putString(SupportFragment.ARG_OPEN_CUSTOMER_NAME, customerName ?: "")
+        }
+        val fragment = SupportFragment().apply { arguments = args }
+        loadFragment(fragment)
+        bottomNavigation.selectedItemId = R.id.nav_support
     }
     
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

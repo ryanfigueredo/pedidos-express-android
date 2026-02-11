@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -25,6 +26,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SupportFragment : Fragment() {
+    
+    companion object {
+        const val ARG_OPEN_PHONE = "open_phone"
+        const val ARG_OPEN_CUSTOMER_NAME = "open_customer_name"
+    }
+    
     private lateinit var apiService: ApiService
     private lateinit var conversationsRecyclerView: RecyclerView
     private lateinit var messagesRecyclerView: RecyclerView
@@ -32,7 +39,6 @@ class SupportFragment : Fragment() {
     private lateinit var sendButton: ImageButton
     private lateinit var whatsappButton: ImageButton
     private lateinit var backButton: ImageButton
-    private lateinit var progressBar: View
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var emptyStateView: View
     private lateinit var chatContainer: View
@@ -44,7 +50,9 @@ class SupportFragment : Fragment() {
     private var messages = mutableListOf<ChatMessage>()
     private val refreshHandler = Handler(Looper.getMainLooper())
     private var refreshRunnable: Runnable? = null
-    
+    private var lastKeypadVisible = false
+    private var keyboardLayoutListener: android.view.ViewTreeObserver.OnGlobalLayoutListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,7 +72,6 @@ class SupportFragment : Fragment() {
         sendButton = view.findViewById(R.id.send_button)
         whatsappButton = view.findViewById(R.id.whatsapp_button)
         backButton = view.findViewById(R.id.back_button)
-        progressBar = view.findViewById(R.id.progress_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         emptyStateView = view.findViewById(R.id.empty_state)
         chatContainer = view.findViewById(R.id.chat_container)
@@ -103,6 +110,14 @@ class SupportFragment : Fragment() {
             loadConversations()
         }
         
+        view.findViewById<Button>(R.id.btn_iniciar_atendimento).setOnClickListener {
+            showIniciarAtendimentoDialog()
+        }
+        
+        titleAtendimento.visibility = View.VISIBLE
+        emptyStateView.visibility = View.VISIBLE
+        chatContainer.visibility = View.GONE
+        
         // Buscar referência ao bottom navigation da activity
         activity?.let {
             if (it is MainNavigationActivity) {
@@ -118,23 +133,21 @@ class SupportFragment : Fragment() {
     }
     
     private fun setupKeyboardListener(rootView: View) {
-        rootView.viewTreeObserver.addOnGlobalLayoutListener {
-            // Verificar se o fragment ainda está anexado
-            if (!isAdded || context == null) return@addOnGlobalLayoutListener
-            
-            // Verificar se o teclado está aberto
+        val thresholdPx = 200.dpToPx(requireContext())
+        keyboardLayoutListener = android.view.ViewTreeObserver.OnGlobalLayoutListener {
+            if (!isAdded || context == null) return@OnGlobalLayoutListener
             val rect = android.graphics.Rect()
             rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            
-            // Só esconder bottom nav quando o teclado estiver aberto
-            if (keypadHeight > 200.dpToPx(requireContext())) {
-                bottomNavigation?.visibility = View.GONE
-            } else {
-                bottomNavigation?.visibility = View.VISIBLE
+            val keypadVisible = keypadHeight > thresholdPx
+            // Só alterar a bottom nav quando o estado do teclado mudar (evita relayout a cada frame e bug ao digitar)
+            if (keypadVisible != lastKeypadVisible) {
+                lastKeypadVisible = keypadVisible
+                bottomNavigation?.visibility = if (keypadVisible) View.GONE else View.VISIBLE
             }
         }
+        rootView.viewTreeObserver.addOnGlobalLayoutListener(keyboardLayoutListener!!)
     }
     
     private fun Int.dpToPx(context: android.content.Context): Int {
@@ -142,17 +155,19 @@ class SupportFragment : Fragment() {
     }
     
     override fun onDestroyView() {
-        super.onDestroyView()
+        keyboardLayoutListener?.let { listener ->
+            view?.viewTreeObserver?.removeOnGlobalLayoutListener(listener)
+        }
+        keyboardLayoutListener = null
         stopAutoRefresh()
+        super.onDestroyView()
     }
     
     private fun loadConversations() {
-        progressBar.visibility = View.VISIBLE
-        
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val loadedConversations = withContext(Dispatchers.IO) {
-                    apiService.getPriorityConversations()
+                    apiService.getInboxConversations()
                 }
                 
                 conversations.clear()
@@ -178,11 +193,71 @@ class SupportFragment : Fragment() {
             } catch (e: Exception) {
                 android.util.Log.e("SupportFragment", "Erro ao carregar conversas", e)
                 Toast.makeText(requireContext(), "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+                conversations.clear()
+                (conversationsRecyclerView.adapter as? ConversationsAdapter)?.notifyDataSetChanged()
+                emptyStateView.visibility = View.VISIBLE
+                chatContainer.visibility = View.GONE
+                titleAtendimento.visibility = View.VISIBLE
             } finally {
-                progressBar.visibility = View.GONE
                 swipeRefresh.isRefreshing = false
+                // Sempre abrir chat com o número do cliente quando veio do botão Atendimento do pedido
+                val openPhone = arguments?.getString(ARG_OPEN_PHONE)
+                if (!openPhone.isNullOrEmpty()) {
+                    arguments?.remove(ARG_OPEN_PHONE)
+                    arguments?.remove(ARG_OPEN_CUSTOMER_NAME)
+                    val openNormalized = normalizePhoneForCompare(openPhone)
+                    val existing = conversations.find { normalizePhoneForCompare(it.phone) == openNormalized }
+                    val conv = existing ?: PriorityConversation(
+                        phone = openPhone,
+                        phoneFormatted = openPhone,
+                        whatsappUrl = "",
+                        waitTime = 0,
+                        timestamp = System.currentTimeMillis(),
+                        lastMessage = 0
+                    )
+                    if (existing == null) {
+                        conversations.add(0, conv)
+                        (conversationsRecyclerView.adapter as? ConversationsAdapter)?.notifyDataSetChanged()
+                    }
+                    selectConversationFromOrder(conv)
+                }
             }
         }
+    }
+    
+    private fun showIniciarAtendimentoDialog() {
+        val input = EditText(requireContext()).apply {
+            hint = "Número do cliente (ex: 71999999999)"
+            setPadding(48, 32, 48, 32)
+            inputType = android.text.InputType.TYPE_CLASS_PHONE
+        }
+        AlertDialog.Builder(requireContext())
+            .setTitle("Iniciar atendimento")
+            .setMessage("Digite o número do cliente para abrir o chat:")
+            .setView(input)
+            .setPositiveButton("Abrir") { _, _ ->
+                val phone = input.text?.toString()?.trim()?.replace(Regex("[^0-9]"), "") ?: ""
+                if (phone.length >= 10) {
+                    val conv = PriorityConversation(
+                        phone = phone,
+                        phoneFormatted = phone,
+                        whatsappUrl = "",
+                        waitTime = 0,
+                        timestamp = System.currentTimeMillis(),
+                        lastMessage = 0
+                    )
+                    if (!conversations.any { it.phone == phone }) {
+                        conversations.add(0, conv)
+                        (conversationsRecyclerView.adapter as? ConversationsAdapter)?.notifyDataSetChanged()
+                    }
+                    emptyStateView.visibility = View.GONE
+                    selectConversationFromOrder(conv)
+                } else {
+                    Toast.makeText(requireContext(), "Digite um número válido (mín. 10 dígitos)", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
     
     private fun goBackToConversationsList() {
@@ -211,19 +286,51 @@ class SupportFragment : Fragment() {
         // Mostrar botão WhatsApp
         whatsappButton.visibility = View.VISIBLE
         
-        // Mensagem inicial informando que o cliente pediu atendimento
         messages.clear()
-        messages.add(ChatMessage(
-            id = "0",
-            text = "Cliente pediu atendimento humano pelo bot.",
-            isAttendant = false,
-            timestamp = Date(conversation.timestamp)
-        ))
-        
         (messagesRecyclerView.adapter as? MessagesAdapter)?.notifyDataSetChanged()
-        scrollToBottom()
+        loadMessagesForConversation(conversation.phone)
         
-        // Atualizar lista de conversas para destacar selecionada
+        (conversationsRecyclerView.adapter as? ConversationsAdapter)?.selectedPhone = conversation.phone
+        (conversationsRecyclerView.adapter as? ConversationsAdapter)?.notifyDataSetChanged()
+    }
+    
+    private fun loadMessagesForConversation(phone: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val list = withContext(Dispatchers.IO) { apiService.getInboxMessages(phone) }
+                messages.clear()
+                list.forEach { m ->
+                    messages.add(ChatMessage(
+                        id = m.id,
+                        text = m.body,
+                        isAttendant = m.direction == "out",
+                        timestamp = try { java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.US).parse(m.createdAt) ?: Date() } catch (_: Exception) { Date() }
+                    ))
+                }
+                (messagesRecyclerView.adapter as? MessagesAdapter)?.notifyDataSetChanged()
+                scrollToBottom()
+            } catch (e: Exception) {
+                android.util.Log.e("SupportFragment", "Erro ao carregar mensagens", e)
+            }
+        }
+    }
+    
+    /** Abre o chat quando o lojista clica em Atendimento no pedido (ele abre para o cliente). */
+    private fun selectConversationFromOrder(conversation: PriorityConversation) {
+        selectedConversation = conversation
+        chatContainer.visibility = View.VISIBLE
+        emptyStateView.visibility = View.GONE
+        titleAtendimento.visibility = View.GONE
+        
+        val headerPhone = view?.findViewById<TextView>(R.id.chat_header_phone)
+        headerPhone?.text = formatPhoneWithCountryCode(conversation.phoneFormatted)
+        
+        whatsappButton.visibility = View.VISIBLE
+        
+        messages.clear()
+        (messagesRecyclerView.adapter as? MessagesAdapter)?.notifyDataSetChanged()
+        loadMessagesForConversation(conversation.phone)
+        
         (conversationsRecyclerView.adapter as? ConversationsAdapter)?.selectedPhone = conversation.phone
         (conversationsRecyclerView.adapter as? ConversationsAdapter)?.notifyDataSetChanged()
     }
@@ -293,7 +400,9 @@ class SupportFragment : Fragment() {
                     (messagesRecyclerView.adapter as? MessagesAdapter)?.notifyItemChanged(messageIndex)
                 }
                 
-                if (!success) {
+                if (success) {
+                    loadMessagesForConversation(conversation.phone)
+                } else {
                     Toast.makeText(requireContext(), "Erro ao enviar mensagem", Toast.LENGTH_SHORT).show()
                 }
                 
@@ -323,10 +432,10 @@ class SupportFragment : Fragment() {
         refreshRunnable = object : Runnable {
             override fun run() {
                 loadConversations()
-                refreshHandler.postDelayed(this, 10000) // Atualiza a cada 10 segundos
+                refreshHandler.postDelayed(this, 5000) // Atualiza a cada 5s para novas conversas aparecerem
             }
         }
-        refreshHandler.postDelayed(refreshRunnable!!, 10000)
+        refreshHandler.postDelayed(refreshRunnable!!, 5000)
     }
     
     private fun stopAutoRefresh() {
@@ -335,6 +444,13 @@ class SupportFragment : Fragment() {
         }
     }
     
+    /** Normaliza telefone para comparação (só dígitos, com 55 se 11 dígitos). */
+    private fun normalizePhoneForCompare(phone: String): String {
+        var digits = phone.replace(Regex("[^0-9]"), "")
+        if (digits.length == 11 && !digits.startsWith("55")) digits = "55$digits"
+        return digits
+    }
+
     private fun formatPhoneWithCountryCode(phoneFormatted: String): String {
         // Extrair apenas dígitos
         var digits = phoneFormatted.replace(Regex("[^0-9]"), "")

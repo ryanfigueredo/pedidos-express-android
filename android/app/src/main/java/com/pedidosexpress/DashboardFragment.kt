@@ -98,34 +98,39 @@ class DashboardFragment : Fragment() {
                 val stats = withContext(Dispatchers.IO) {
                     apiService.getStats()
                 }
-                
-                ordersTodayText.text = "${stats.today.orders}"
-                revenueTodayText.text = "R$ ${String.format("%.2f", stats.today.revenue)}"
-                ordersWeekText.text = "${stats.week.orders}"
-                revenueWeekText.text = "R$ ${String.format("%.2f", stats.week.revenue)}"
-                pendingOrdersText.text = "${stats.pendingOrders}"
-                
-                // Calcular ticket médio
-                val avgTicket = if (stats.today.orders > 0) {
-                    stats.today.revenue / stats.today.orders
-                } else {
-                    0.0
-                }
-                avgTicketText.text = "R$ ${String.format("%.2f", avgTicket)}"
-                
-                // Atualizar gráficos
-                updateCharts(stats.dailyStats)
-                
+                if (!isAdded) return@launch
+                applyStatsToUi(stats)
             } catch (e: Exception) {
                 android.util.Log.e("DashboardFragment", "Erro ao carregar stats", e)
-                if (!silent) {
-                    Toast.makeText(requireContext(), "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+                if (isAdded) {
+                    applyStatsToUi(DashboardStats(
+                        today = DayStats(0, 0.0),
+                        week = WeekStats(0, 0.0),
+                        pendingOrders = 0,
+                        dailyStats = emptyList()
+                    ))
+                    if (!silent) {
+                        Toast.makeText(requireContext(), "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } finally {
-                progressBar.visibility = View.GONE
-                swipeRefresh.isRefreshing = false
+                if (isAdded) {
+                    progressBar.visibility = View.GONE
+                    swipeRefresh.isRefreshing = false
+                }
             }
         }
+    }
+
+    private fun applyStatsToUi(stats: DashboardStats) {
+        ordersTodayText.text = "${stats.today.orders}"
+        revenueTodayText.text = "R$ ${String.format(java.util.Locale("pt", "BR"), "%.2f", stats.today.revenue)}"
+        ordersWeekText.text = "${stats.week.orders}"
+        revenueWeekText.text = "R$ ${String.format(java.util.Locale("pt", "BR"), "%.2f", stats.week.revenue)}"
+        pendingOrdersText.text = "${stats.pendingOrders}"
+        val avgTicket = if (stats.today.orders > 0) stats.today.revenue / stats.today.orders else 0.0
+        avgTicketText.text = "R$ ${String.format(java.util.Locale("pt", "BR"), "%.2f", avgTicket)}"
+        updateCharts(stats.dailyStats)
     }
     
     private fun setupCharts() {
@@ -177,10 +182,17 @@ class DashboardFragment : Fragment() {
     }
     
     private fun updateCharts(dailyStats: List<DailyStat>) {
-        if (dailyStats.isEmpty()) return
-        
+        val list = if (dailyStats.isEmpty()) {
+            // Semana com zeros para os gráficos não ficarem vazios
+            listOf("Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom").map { day ->
+                DailyStat(day = day, orders = 0, revenue = 0.0)
+            }
+        } else {
+            dailyStats
+        }
+        val labels = list.map { it.day.take(3) }
         // Gráfico de barras - Pedidos
-        val entriesOrders = dailyStats.mapIndexed { index, stat ->
+        val entriesOrders = list.mapIndexed { index, stat ->
             BarEntry(index.toFloat(), stat.orders.toFloat())
         }
         val user = authService.getUser()
@@ -188,16 +200,11 @@ class DashboardFragment : Fragment() {
         barDataSet.color = Color.parseColor("#ea580c")
         barDataSet.valueTextColor = Color.parseColor("#111827")
         barDataSet.valueTextSize = 10f
-        
-        val barData = BarData(barDataSet)
-        chartOrders.data = barData
-        
-        val labels = dailyStats.map { it.day.substring(0, 3) } // Primeiras 3 letras
+        chartOrders.data = BarData(barDataSet)
         chartOrders.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         chartOrders.invalidate()
-        
         // Gráfico de linhas - Receita
-        val entriesRevenue = dailyStats.mapIndexed { index, stat ->
+        val entriesRevenue = list.mapIndexed { index, stat ->
             Entry(index.toFloat(), stat.revenue.toFloat())
         }
         val lineDataSet = LineDataSet(entriesRevenue, "Receita")
@@ -212,10 +219,7 @@ class DashboardFragment : Fragment() {
         lineDataSet.setDrawFilled(true)
         lineDataSet.fillColor = Color.parseColor("#16a34a")
         lineDataSet.fillAlpha = 50
-        
-        val lineData = LineData(lineDataSet)
-        chartRevenue.data = lineData
-        
+        chartRevenue.data = LineData(lineDataSet)
         chartRevenue.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         chartRevenue.invalidate()
     }

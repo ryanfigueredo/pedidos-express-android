@@ -53,6 +53,31 @@ data class OrderItem(
     val price: Double
 )
 
+/** Item com id para criação de pedido (POST /api/orders). */
+data class CreateOrderItem(
+    val id: String,
+    val name: String,
+    val quantity: Int,
+    val price: Double
+)
+
+/** Payload para criar pedido local (garçom). */
+data class CreateOrderRequest(
+    @SerializedName("customer_name") val customerName: String,
+    @SerializedName("customer_phone") val customerPhone: String = "",
+    val items: List<CreateOrderItem>,
+    @SerializedName("total_price") val totalPrice: Double,
+    @SerializedName("payment_method") val paymentMethod: String = "Não especificado",
+    @SerializedName("order_type") val orderType: String = "restaurante"
+)
+
+/** Resposta do POST /api/orders. */
+data class CreateOrderResponse(
+    val success: Boolean,
+    val order: Order? = null,
+    val error: String? = null
+)
+
 data class OrdersResponse(
     val orders: List<Order>,
     val pagination: Pagination
@@ -257,6 +282,50 @@ class ApiService(private val context: android.content.Context) {
         }
     }
     
+    /** Cria um pedido local (garçom no restaurante). Usa a mesma lógica de fila/impressão. */
+    suspend fun createOrder(request: CreateOrderRequest): Order {
+        return withContext(Dispatchers.IO) {
+            val json = gson.toJson(request)
+            val body = json.toRequestBody("application/json".toMediaType())
+            val req = buildRequest("$API_BASE_URL/api/orders", "POST", body)
+            val response = client.newCall(req).execute()
+            val responseBody = response.body?.string()
+            if (!response.isSuccessful) {
+                val err = try { gson.fromJson(responseBody, CreateOrderResponse::class.java)?.error } catch (_: Exception) { null }
+                throw IOException(err ?: "Erro ao criar pedido: ${response.code}")
+            }
+            val data = gson.fromJson(responseBody, Map::class.java) as Map<*, *>
+            val orderMap = data["order"] as? Map<*, *>
+                ?: throw IOException("Resposta inválida: order não encontrado")
+            val items = (orderMap["items"] as? List<*>)?.map { itemMap ->
+                val item = itemMap as Map<*, *>
+                OrderItem(
+                    name = item["name"].toString(),
+                    quantity = (item["quantity"] as? Double)?.toInt() ?: (item["quantity"] as? Int) ?: 1,
+                    price = (item["price"] as? Double) ?: 0.0
+                )
+            } ?: emptyList()
+            Order(
+                id = orderMap["id"].toString(),
+                customerName = orderMap["customer_name"].toString(),
+                customerPhone = orderMap["customer_phone"].toString(),
+                items = items,
+                totalPrice = (orderMap["total_price"] as? Double) ?: 0.0,
+                status = orderMap["status"].toString(),
+                createdAt = orderMap["created_at"].toString(),
+                displayId = orderMap["display_id"]?.toString(),
+                dailySequence = (orderMap["daily_sequence"] as? Double)?.toInt(),
+                orderType = orderMap["order_type"]?.toString(),
+                deliveryAddress = orderMap["delivery_address"]?.toString(),
+                paymentMethod = orderMap["payment_method"]?.toString(),
+                subtotal = null,
+                deliveryFee = null,
+                changeFor = null,
+                printRequestedAt = orderMap["print_requested_at"]?.toString()
+            )
+        }
+    }
+
     suspend fun updateOrderStatus(orderId: String, status: String) {
         return withContext(Dispatchers.IO) {
             val json = gson.toJson(mapOf("status" to status))
@@ -349,6 +418,25 @@ class ApiService(private val context: android.content.Context) {
         }
     }
     
+    /** Converte valor do JSON (Int ou Double) para Int. */
+    private fun mapInt(map: Map<*, *>, key: String): Int {
+        val v = map[key] ?: return 0
+        return when (v) {
+            is Number -> v.toInt()
+            is Double -> v.toInt()
+            else -> (v as? Number)?.toInt() ?: 0
+        }
+    }
+
+    /** Converte valor do JSON (Int ou Double) para Double. */
+    private fun mapDouble(map: Map<*, *>, key: String): Double {
+        val v = map[key] ?: return 0.0
+        return when (v) {
+            is Number -> v.toDouble()
+            else -> (v as? Number)?.toDouble() ?: 0.0
+        }
+    }
+
     suspend fun getStats(): DashboardStats {
         return withContext(Dispatchers.IO) {
             val request = buildRequest("$API_BASE_URL/api/admin/stats", "GET")
@@ -356,33 +444,36 @@ class ApiService(private val context: android.content.Context) {
             val responseBody = response.body?.string()
             
             if (!response.isSuccessful) {
+                Log.e(TAG, "getStats failed: ${response.code} - $responseBody")
                 throw IOException("Erro ao carregar stats: ${response.code}")
             }
             
-            val data = gson.fromJson(responseBody, Map::class.java) as Map<*, *>
-            val statsData = data["stats"] as Map<*, *>
-            val todayData = statsData["today"] as Map<*, *>
-            val weekData = statsData["week"] as Map<*, *>
-            val pendingOrders = (statsData["pendingOrders"] as? Double)?.toInt() ?: 0
+            val data = gson.fromJson(responseBody, Map::class.java) as? Map<*, *>
+                ?: throw IOException("Resposta inválida")
+            val statsData = data["stats"] as? Map<*, *>
+                ?: throw IOException("Resposta sem stats")
+            val todayData = statsData["today"] as? Map<*, *> ?: emptyMap<Any, Any>()
+            val weekData = statsData["week"] as? Map<*, *> ?: emptyMap<Any, Any>()
+            val pendingOrders = mapInt(statsData, "pendingOrders")
             val dailyStatsData = statsData["dailyStats"] as? List<*> ?: emptyList<Any>()
             
-            val dailyStats = dailyStatsData.map { dayMap ->
-                val day = dayMap as Map<*, *>
+            val dailyStats = dailyStatsData.mapNotNull { dayMap ->
+                val day = dayMap as? Map<*, *> ?: return@mapNotNull null
                 DailyStat(
-                    day = day["day"].toString(),
-                    orders = (day["orders"] as? Double)?.toInt() ?: 0,
-                    revenue = (day["revenue"] as? Double) ?: 0.0
+                    day = day["day"]?.toString() ?: "",
+                    orders = mapInt(day, "orders"),
+                    revenue = mapDouble(day, "revenue")
                 )
             }
             
             DashboardStats(
                 today = DayStats(
-                    orders = (todayData["orders"] as Double).toInt(),
-                    revenue = (todayData["revenue"] as? Double) ?: 0.0
+                    orders = mapInt(todayData, "orders"),
+                    revenue = mapDouble(todayData, "revenue")
                 ),
                 week = WeekStats(
-                    orders = (weekData["orders"] as Double).toInt(),
-                    revenue = (weekData["revenue"] as? Double) ?: 0.0
+                    orders = mapInt(weekData, "orders"),
+                    revenue = mapDouble(weekData, "revenue")
                 ),
                 pendingOrders = pendingOrders,
                 dailyStats = dailyStats
@@ -506,18 +597,22 @@ class ApiService(private val context: android.content.Context) {
             }
             
             val data = gson.fromJson(responseBody, Map::class.java) as Map<*, *>
+            val status = (data["status"] as? Map<*, *>) ?: data
             StoreStatus(
-                isOpen = data["isOpen"] == true,
-                nextOpenTime = data["nextOpenTime"]?.toString(),
-                message = data["message"]?.toString(),
-                lastUpdated = data["lastUpdated"].toString()
+                isOpen = status["isOpen"] == true,
+                nextOpenTime = status["nextOpenTime"]?.toString(),
+                message = status["message"]?.toString(),
+                lastUpdated = (status["lastUpdated"]?.toString() ?: "")
             )
         }
     }
     
-    suspend fun updateStoreStatus(isOpen: Boolean) {
+    suspend fun updateStoreStatus(isOpen: Boolean, message: String? = null, nextOpenTime: String? = null) {
         return withContext(Dispatchers.IO) {
-            val json = gson.toJson(mapOf("isOpen" to isOpen))
+            val bodyMap = mutableMapOf<String, Any?>("isOpen" to isOpen)
+            if (message != null) bodyMap["message"] = message
+            if (nextOpenTime != null) bodyMap["nextOpenTime"] = nextOpenTime
+            val json = gson.toJson(bodyMap)
             val body = json.toRequestBody("application/json".toMediaType())
             val request = buildRequest("$API_BASE_URL/api/admin/store-hours", "POST", body)
             
@@ -528,28 +623,66 @@ class ApiService(private val context: android.content.Context) {
         }
     }
     
-    suspend fun getPriorityConversations(): List<PriorityConversation> {
+    /** Lista todas as conversas (inbox) - clientes que já trocaram mensagem com o bot. */
+    suspend fun getInboxConversations(): List<PriorityConversation> {
         return withContext(Dispatchers.IO) {
-            val request = buildRequest("$API_BASE_URL/api/admin/priority-conversations", "GET")
+            val request = buildRequest("$API_BASE_URL/api/admin/inbox/conversations", "GET")
             val response = client.newCall(request).execute()
             val responseBody = response.body?.string()
-            
             if (!response.isSuccessful) {
                 throw IOException("Erro ao carregar conversas: ${response.code}")
             }
-            
             val data = gson.fromJson(responseBody, Map::class.java) as Map<*, *>
             val conversationsData = data["conversations"] as? List<*> ?: emptyList<Any>()
-            
             conversationsData.map { convMap ->
                 val conv = convMap as Map<*, *>
+                val phone = conv["customer_phone"]?.toString() ?: conv["phone"]?.toString() ?: ""
+                val lastAt = conv["last_message_at"]?.toString()
+                val ts = if (lastAt != null) {
+                    try { java.time.Instant.parse(lastAt).toEpochMilli() } catch (_: Exception) { System.currentTimeMillis() }
+                } else { (conv["timestamp"] as? Double)?.toLong() ?: System.currentTimeMillis() }
+                val digits = phone.replace(Regex("[^0-9]"), "")
+                val waNum = if (!digits.startsWith("55") && digits.length >= 10) "55$digits" else digits
                 PriorityConversation(
-                    phone = conv["phone"].toString(),
-                    phoneFormatted = conv["phone_formatted"]?.toString() ?: conv["phone"].toString(),
-                    whatsappUrl = conv["whatsapp_url"]?.toString() ?: "",
-                    waitTime = ((conv["wait_time"] as? Double) ?: 0.0).toInt(),
-                    timestamp = ((conv["timestamp"] as? Double) ?: 0.0).toLong(),
-                    lastMessage = ((conv["last_message"] as? Double) ?: 0.0).toLong()
+                    phone = phone,
+                    phoneFormatted = formatPhoneForDisplay(waNum),
+                    whatsappUrl = "https://wa.me/$waNum",
+                    waitTime = 0,
+                    timestamp = ts,
+                    lastMessage = ts
+                )
+            }
+        }
+    }
+
+    private fun formatPhoneForDisplay(phone: String): String {
+        var digits = phone.replace(Regex("[^0-9]"), "")
+        if (digits.startsWith("55") && digits.length > 11) digits = digits.substring(2)
+        return when {
+            digits.length >= 11 -> "(${digits.take(2)}) ${digits.substring(2, 7)}-${digits.substring(7, 11)}"
+            digits.length >= 10 -> "(${digits.take(2)}) ${digits.substring(2, 6)}-${digits.substring(6)}"
+            else -> phone
+        }
+    }
+
+    /** Histórico de mensagens de uma conversa (inbox). */
+    suspend fun getInboxMessages(phone: String): List<InboxMessage> {
+        return withContext(Dispatchers.IO) {
+            var digits = phone.replace(Regex("[^0-9]"), "")
+            if (!digits.startsWith("55") && digits.length >= 10) digits = "55$digits"
+            val request = buildRequest("$API_BASE_URL/api/admin/inbox/conversations/${java.net.URLEncoder.encode(digits, "UTF-8")}", "GET")
+            val response = client.newCall(request).execute()
+            val responseBody = response.body?.string()
+            if (!response.isSuccessful) return@withContext emptyList()
+            val data = gson.fromJson(responseBody, Map::class.java) as Map<*, *>
+            val list = data["messages"] as? List<*> ?: emptyList<Any>()
+            list.map { m ->
+                val msg = m as Map<*, *>
+                InboxMessage(
+                    id = msg["id"]?.toString() ?: "",
+                    direction = msg["direction"]?.toString() ?: "in",
+                    body = msg["body"]?.toString() ?: "",
+                    createdAt = msg["created_at"]?.toString() ?: ""
                 )
             }
         }
@@ -653,6 +786,13 @@ data class PriorityConversation(
     @SerializedName("wait_time") val waitTime: Int,
     val timestamp: Long,
     @SerializedName("last_message") val lastMessage: Long
+)
+
+data class InboxMessage(
+    val id: String,
+    val direction: String,
+    val body: String,
+    @SerializedName("created_at") val createdAt: String
 )
 
 data class Subscription(

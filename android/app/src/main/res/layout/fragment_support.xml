@@ -26,11 +26,27 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#ea580c"
-            android:padding="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"
             android:gravity="center"
             android:background="#ffffff"
             android:maxLines="1"
             android:ellipsize="none" />
+
+        <TextView
+            android:id="@+id/subtitle_conversas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Todas as conversas com o bot"
+            android:textSize="12sp"
+            android:textColor="#6b7280"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:gravity="center"
+            android:background="#ffffff" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
@@ -152,11 +168,14 @@
                 android:hint="Digite sua mensagem..."
                 android:maxLines="4"
                 android:minLines="1"
+                android:inputType="textCapSentences|textMultiLine"
+                android:imeOptions="actionSend"
                 android:background="@drawable/message_input_background"
                 android:padding="12dp"
                 android:textSize="14sp"
                 android:textColor="#1f2937"
-                android:textColorHint="#9ca3af" />
+                android:textColorHint="#9ca3af"
+                android:focusableInTouchMode="true" />
 
             <ImageButton
                 android:id="@+id/send_button"
@@ -174,13 +193,13 @@
 
     </LinearLayout>
 
-    <!-- Empty State (sobrepõe tudo) -->
+    <!-- Empty State (mostra quando não há conversas ou ao carregar) -->
     <FrameLayout
         android:id="@+id/empty_state"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff7ed"
-        android:visibility="gone">
+        android:visibility="visible">
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -200,7 +219,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nenhuma conversa prioritária no momento"
+            android:text="Nenhuma conversa ainda"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#1f2937"
@@ -210,32 +229,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clientes que pedirem atendimento aparecerão aqui"
+            android:text="As conversas dos clientes com o bot aparecerão aqui"
             android:textSize="14sp"
             android:textColor="#6b7280"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btn_iniciar_atendimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar atendimento com número"
+            android:textSize="14sp"
+            android:backgroundTint="#ea580c"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            style="@style/Widget.MaterialComponents.Button" />
 
         </LinearLayout>
         
-    </FrameLayout>
-
-    <!-- Loading Animation (sobrepõe tudo) -->
-    <FrameLayout
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff7ed"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            app:lottie_fileName="delivery_animation.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true" />
-
     </FrameLayout>
 
 </FrameLayout>

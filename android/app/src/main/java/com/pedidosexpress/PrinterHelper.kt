@@ -141,23 +141,10 @@ class PrinterHelper(private val context: Context) {
     }
     
     /**
-     * Teste de impressão
+     * Teste de impressão - mínimo para não gastar folha
      */
     fun testPrint() {
-        val testText = """
-            [C]<b>TESTE DE IMPRESSÃO</b>
-            [C]Pedidos Express
-            [C]----------------
-            [L]
-            [L]Produto: Hambúrguer
-            [L]Quantidade: 1
-            [L]Preço: R$ 25,00
-            [L]
-            [C]----------------
-            [L]
-            [C]Obrigado!
-        """.trimIndent()
-        
+        val testText = "[C]Funcionando"
         printFormattedText(testText)
     }
     
@@ -170,11 +157,11 @@ class PrinterHelper(private val context: Context) {
     }
     
     /**
-     * Remove "Hambúrguer" ou "Hamburguer" do início do nome do produto
+     * Normaliza nome: "Hambúrguer"/"Hamburguer" → "Hamb." para exibição no ticket.
      */
     private fun removeHamburguerPrefix(productName: String): String {
         return productName
-            .replace(Regex("^[Hh]amb[uú]rguer\\s+", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("[Hh]amb[uú]rguer", RegexOption.IGNORE_CASE), "Hamb.")
             .trim()
     }
     
@@ -182,7 +169,7 @@ class PrinterHelper(private val context: Context) {
      * Formata pedido para impressão
      */
     private fun formatOrder(order: Order): String {
-        val displayId = order.displayId ?: order.id.take(8)
+        val displayId = (order.displayId ?: order.id.take(8)).replace("#", "")
         
         // Converter data para horário Brasil (GMT-3)
         val timeStr = try {
@@ -212,7 +199,7 @@ class PrinterHelper(private val context: Context) {
         }
         
         return buildString {
-            appendLine("[C]<b>PEDIDO #$displayId</b>")
+            appendLine("[C]<b>PEDIDO $displayId</b>")
             appendLine()
             appendLine("[L]Cliente: ${order.customerPhone}")
             appendLine("[L]Horário: $timeStr")

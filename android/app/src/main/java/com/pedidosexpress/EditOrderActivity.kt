@@ -196,7 +196,7 @@ class EditOrderActivity : AppCompatActivity() {
                 }
                 
                 // Notificar cliente
-                val displayId = order!!.displayId ?: order!!.id.take(8)
+                val displayId = (order!!.displayId ?: order!!.id.take(8)).replace("#", "")
                 val itemsText = orderItems.joinToString("\n") { item ->
                     "${item.quantity}x ${item.name} - R$ ${String.format("%.2f", item.price * item.quantity)}"
                 }

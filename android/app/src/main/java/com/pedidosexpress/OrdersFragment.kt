@@ -12,17 +12,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.content.Intent
+import android.net.Uri
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +35,7 @@ import kotlinx.coroutines.withContext
 
 class OrdersFragment : Fragment() {
     private lateinit var ordersRecyclerView: RecyclerView
-    private lateinit var testPrintButton: Button
+    private lateinit var testPrintButton: ImageButton
     private lateinit var progressBar: View
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var ordersTabs: TabLayout
@@ -54,6 +58,7 @@ class OrdersFragment : Fragment() {
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1001
         private const val REQUEST_EDIT_ORDER = 1002
+        private const val REQUEST_NEW_ORDER = 1003
     }
     
     override fun onCreateView(
@@ -80,20 +85,30 @@ class OrdersFragment : Fragment() {
         progressBar = view.findViewById(R.id.progress_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         ordersTabs = view.findViewById(R.id.orders_tabs)
+        val fabNewOrder = view.findViewById<FloatingActionButton>(R.id.fab_new_order)
+        fabNewOrder.setOnClickListener {
+            startActivityForResult(Intent(requireContext(), NewOrderActivity::class.java), REQUEST_NEW_ORDER)
+        }
         
         ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         
         val ordersAdapter = OrdersAdapter(
             emptyList(),
-            onOrderClick = { order ->
+            onPrint = { order ->
                 if (checkBluetoothPermissions()) {
                     printerHelper.printOrder(order)
                 } else {
                     requestBluetoothPermissions()
                 }
             },
-            onMenuClick = { order ->
-                showOrderMenuDialog(order)
+            onSendToDelivery = { order ->
+                showSendToDeliveryConfirm(order)
+            },
+            onEdit = { order ->
+                showEditOrderDialog(order)
+            },
+            onWhatsApp = { order ->
+                openWhatsAppForCustomer(order.customerPhone)
             },
             onConfirmDelivery = { order ->
                 confirmDelivery(order)
@@ -266,35 +281,37 @@ class OrdersFragment : Fragment() {
         }
     }
     
-    private fun showOrderMenuDialog(order: Order) {
-        val options = arrayOf("Imprimir", "Atualizar Status", "Editar Pedido")
-        
+    private fun showSendToDeliveryConfirm(order: Order) {
+        val displayId = (order.displayId ?: order.id.take(8)).replace("#", "")
         AlertDialog.Builder(requireContext())
-            .setTitle("Opções do Pedido")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> {
-                        // Imprimir
-                        if (checkBluetoothPermissions()) {
-                            printerHelper.printOrder(order)
-                        } else {
-                            requestBluetoothPermissions()
-                        }
-                    }
-                    1 -> {
-                        // Atualizar Status
-                        showUpdateStatusDialog(order)
-                    }
-                    2 -> {
-                        // Editar Pedido
-                        showEditOrderDialog(order)
-                    }
-                }
+            .setTitle("Enviar para entrega")
+            .setMessage("Enviar o pedido $displayId para entrega?")
+            .setPositiveButton("Enviar") { _, _ ->
+                updateOrderStatus(order, "out_for_delivery", null)
             }
             .setNegativeButton("Cancelar", null)
             .show()
     }
-    
+
+    /** Abre o app WhatsApp para conversar com o cliente (número do pedido). */
+    private fun openWhatsAppForCustomer(phone: String) {
+        var digits = phone.replace(Regex("[^0-9]"), "")
+        if (digits.length == 10 || digits.length == 11) {
+            if (!digits.startsWith("55")) digits = "55$digits"
+        }
+        if (digits.isEmpty()) {
+            Toast.makeText(requireContext(), "Telefone do cliente não disponível", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val uri = Uri.parse("https://wa.me/$digits")
+        val intent = Intent(Intent.ACTION_VIEW, uri).apply { setPackage("com.whatsapp") }
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
+    }
+
     private fun showUpdateStatusDialog(order: Order) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_order_status, null)
         
@@ -341,10 +358,24 @@ class OrdersFragment : Fragment() {
                     apiService.updateOrderStatus(order.id, status)
                 }
                 
-                // Se for status "altered", enviar mensagem ao cliente
-                if (status == "altered" && !customMessage.isNullOrEmpty()) {
+                // Ao enviar para entrega: avisar o cliente e pedido vai para a aba Rota
+                if (status == "out_for_delivery") {
                     try {
-                        val displayId = order.displayId ?: order.id.take(8)
+                        val displayId = (order.displayId ?: order.id.take(8)).replace("#", "")
+                        val message = "Olá ${order.customerName}! 🛵\n\nSeu pedido $displayId *saiu para entrega*!\n\nEm breve chegaremos aí."
+                        withContext(Dispatchers.IO) {
+                            apiService.sendMessageToCustomer(order.customerPhone, message)
+                        }
+                        Toast.makeText(requireContext(), "Cliente avisado. Pedido na aba Rota.", Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        android.util.Log.e("OrdersFragment", "Erro ao avisar cliente", e)
+                        Toast.makeText(requireContext(), "Pedido enviado para entrega. Erro ao avisar cliente: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
+                // Se for status "altered", enviar mensagem ao cliente
+                else if (status == "altered" && !customMessage.isNullOrEmpty()) {
+                    try {
+                        val displayId = (order.displayId ?: order.id.take(8)).replace("#", "")
                         val message = "Olá ${order.customerName}! 👋\n\n" +
                                 "Sobre seu pedido $displayId:\n\n" +
                                 "$customMessage\n\n" +
@@ -410,7 +441,7 @@ class OrdersFragment : Fragment() {
     private fun confirmDelivery(order: Order) {
         AlertDialog.Builder(requireContext())
             .setTitle("Confirmar Entrega")
-            .setMessage("Confirmar que o pedido #${order.displayId ?: order.id.take(8)} foi entregue?")
+            .setMessage("Confirmar que o pedido ${(order.displayId ?: order.id.take(8)).replace("#", "")} foi entregue?")
             .setPositiveButton("Confirmar") { _, _ ->
                 updateOrderStatus(order, "finished", null)
             }
@@ -433,7 +464,7 @@ class OrdersFragment : Fragment() {
                 }
                 
                 // Enviar mensagem ao cliente sobre o problema
-                val displayId = order.displayId ?: order.id.take(8)
+                val displayId = (order.displayId ?: order.id.take(8)).replace("#", "")
                 val message = "Olá ${order.customerName}! 👋\n\n" +
                         "Sobre seu pedido $displayId:\n\n" +
                         "Encontramos um problema: $problem\n\n" +
@@ -459,7 +490,10 @@ class OrdersFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: android.content.Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_EDIT_ORDER && resultCode == android.app.Activity.RESULT_OK) {
-            // Recarregar pedidos após edição
+            loadOrders(false)
+        }
+        if (requestCode == REQUEST_NEW_ORDER && resultCode == android.app.Activity.RESULT_OK) {
+            // Recarregar lista após registrar pedido local; mesma lógica de impressão será aplicada
             loadOrders(false)
         }
     }

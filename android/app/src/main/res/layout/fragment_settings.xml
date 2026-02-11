@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:background="#fff7ed"
+        android:padding="20dp"
+        android:paddingBottom="32dp">
 
         <!-- Header -->
         <TextView
@@ -19,10 +21,10 @@
             android:text="Configurações"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:padding="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
             android:gravity="center"
-            android:textColor="#ea580c"
-            android:background="#ffffff" />
+            android:textColor="#ea580c" />
 
         <!-- Card de Informações do Usuário -->
         <androidx.cardview.widget.CardView
@@ -105,46 +107,6 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_tag"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="Ícone de usuário" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Usuário"
-                            android:textSize="12sp"
-                            android:textColor="#6b7280"
-                            android:layout_marginBottom="2dp" />
-
-                        <TextView
-                            android:id="@+id/user_username"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@N/A"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#ea580c" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
                         android:src="@drawable/ic_badge"
                         android:layout_marginEnd="12dp"
                         android:contentDescription="Ícone de função" />
@@ -171,6 +133,45 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="#111827" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_tag"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Ícone de email" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="12sp"
+                            android:textColor="#6b7280"
+                            android:layout_marginBottom="2dp" />
+
+                        <TextView
+                            android:id="@+id/user_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="N/A"
+                            android:textSize="14sp"
+                            android:textColor="#6b7280" />
 
                     </LinearLayout>
 
@@ -215,7 +216,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="8dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -231,6 +232,28 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/store_closed_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Quando fechada: informe o horário de abertura ou mensagem (ex: Abre às 18h)"
+                    android:textSize="12sp"
+                    android:textColor="#6b7280"
+                    android:layout_marginBottom="4dp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/store_closed_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:inputType="textCapSentences"
+                    android:hint="Ex: Abre às 18h | Amanhã 12h"
+                    android:padding="12dp"
+                    android:background="@drawable/edittext_background"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/save_store_button"

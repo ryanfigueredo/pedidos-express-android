@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
@@ -24,6 +25,7 @@ class SettingsFragment : Fragment() {
     
     private lateinit var apiService: ApiService
     private lateinit var isOpenSwitch: Switch
+    private lateinit var storeClosedMessage: EditText
     private lateinit var saveStoreButton: Button
     private lateinit var storeProgressBar: ProgressBar
     
@@ -58,13 +60,21 @@ class SettingsFragment : Fragment() {
             "manager" -> "Gerente"
             else -> user?.role ?: "N/A"
         }
-        view.findViewById<TextView>(R.id.user_username).text = "@${user?.username ?: "N/A"}"
+        view.findViewById<TextView>(R.id.user_email).text = user?.username ?: "N/A"
         
         // Status da Loja
         apiService = ApiService(requireContext())
         isOpenSwitch = view.findViewById(R.id.is_open_switch)
+        storeClosedMessage = view.findViewById(R.id.store_closed_message)
         saveStoreButton = view.findViewById(R.id.save_store_button)
         storeProgressBar = view.findViewById(R.id.store_progress_bar)
+        
+        val storeClosedHint = view.findViewById<TextView>(R.id.store_closed_hint)
+        isOpenSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val visible = !isChecked
+            storeClosedHint.visibility = if (visible) View.VISIBLE else View.GONE
+            storeClosedMessage.visibility = if (visible) View.VISIBLE else View.GONE
+        }
         
         saveStoreButton.setOnClickListener {
             saveStoreStatus()
@@ -106,6 +116,10 @@ class SettingsFragment : Fragment() {
                 }
                 
                 isOpenSwitch.isChecked = status.isOpen
+                storeClosedMessage.setText(status.message ?: "")
+                val closedVisible = !status.isOpen
+                requireView().findViewById<TextView>(R.id.store_closed_hint).visibility = if (closedVisible) View.VISIBLE else View.GONE
+                storeClosedMessage.visibility = if (closedVisible) View.VISIBLE else View.GONE
                 
             } catch (e: Exception) {
                 android.util.Log.e("SettingsFragment", "Erro ao carregar status", e)
@@ -122,8 +136,9 @@ class SettingsFragment : Fragment() {
         
         CoroutineScope(Dispatchers.Main).launch {
             try {
+                val message = if (isOpenSwitch.isChecked) null else storeClosedMessage.text?.toString()?.trim()
                 withContext(Dispatchers.IO) {
-                    apiService.updateStoreStatus(isOpenSwitch.isChecked)
+                    apiService.updateStoreStatus(isOpenSwitch.isChecked, message = message)
                 }
                 
                 Toast.makeText(requireContext(), "Status atualizado!", Toast.LENGTH_SHORT).show()
